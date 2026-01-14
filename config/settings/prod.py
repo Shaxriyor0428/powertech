@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ["*"]
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = "/var/www/powertech/staticfiles"
-MEDIA_ROOT = "/var/www/powertech/mediafiles"
+STATIC_ROOT = "/var/www/uproject/powertech/staticfiles"
+MEDIA_ROOT = "/var/www/uproject/powertech/mediafiles"
 
 CORS_ALLOW_ALL_ORIGINS = True
