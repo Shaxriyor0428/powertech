@@ -30,21 +30,21 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 25
 
     fieldsets = (
-        ("Asosiy ma'lumotlar", {
+        ("Основные данные", {
             "fields": (
                 "full_name",
                 "username",
                 "password",
             )
         }),
-        ("Ruxsatlar", {
+        ("Права доступа", {
             "fields": (
                 "is_superuser",
                 "is_staff",
                 "is_active",
             )
         }),
-        ("Vaqt ma'lumotlari", {
+        ("Дата и время", {
             "fields": (
                 "created_at",
                 "updated_at",
@@ -59,8 +59,8 @@ class UserAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         """
-        Agar user yaratilayotgan bo‘lsa yoki parol o‘zgargan bo‘lsa,
-        passwordni HASH qilib saqlaydi
+        Если пользователь создаётся или пароль был изменён,
+        пароль сохраняется в зашифрованном (hash) виде
         """
         if not change or "password" in form.changed_data:
             obj.password = make_password(obj.password)

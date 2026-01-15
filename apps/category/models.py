@@ -7,8 +7,8 @@ class Category(BaseModel):
 
     class Meta:
         db_table = "categories"
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
     def __str__(self):
         return self.name

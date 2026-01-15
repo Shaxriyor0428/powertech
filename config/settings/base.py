@@ -147,12 +147,11 @@ REST_FRAMEWORK = {
 # settings.py
 
 JAZZMIN_SETTINGS = {
-    # THESE THREE LINES ARE THE MOST IMPORTANT
-    "site_title": "Powertech",      # removes "Aksessuar" from browser tab
-    "site_header": "Powertech",     # removes text from the main header
-    "site_brand": "Powertech",      # removes text from sidebar & top-left
+    "site_title": "Powertech",            # заголовок вкладки браузера
+    "site_header": "Powertech",           # основной заголовок в админке
+    "site_brand": "Powertech",            # бренд в сайдбаре и в левом верхнем углу
 
-    "welcome_sign": "Welcome back!",
+    "welcome_sign": "С возвращением!",
 
     # Your logo (path is relative to STATICFILES_DIRS or static/ folder)
     "site_logo": "logo1.png",      # shows in header and sidebar
@@ -249,7 +248,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-Ru"
 TIME_ZONE = "Asia/Tashkent"
 USE_I18N = True
 USE_TZ = True

@@ -1,16 +1,13 @@
-from apps.product.models import ProductImage, ProductCharacteristicSection
 from django.contrib import admin
 from django.utils.html import format_html
+
+from apps.product.models import ProductImage, ProductCharacteristicSection
 from apps.product.models.product import Product, ProductCharacteristic
 
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "product",
-        "image_preview",
-    )
+    list_display = ("id", "product", "image_preview")
     list_filter = ("product",)
     search_fields = ("product__title",)
     readonly_fields = ("image_preview",)
@@ -23,28 +20,27 @@ class ProductImageAdmin(admin.ModelAdmin):
                 obj.image.url
             )
         return "-"
-    image_preview.short_description = "Rasm"
+    image_preview.short_description = "Изображение"
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
+    verbose_name = "Изображение товара"
+    verbose_name_plural = "Изображения товара"
+
 
 class ProductCharacteristicInline(admin.TabularInline):
     model = ProductCharacteristic
     extra = 1
     fields = ("section", "name", "description")
+    verbose_name = "Характеристика товара"
+    verbose_name_plural = "Характеристики товара"
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = (
-        "title",
-        "category",
-        "price",
-        "image_preview",
-        "created_at",
-    )
+    list_display = ("title", "category", "price", "image_preview", "created_at")
     list_filter = ("category", "created_at")
     search_fields = ("title", "description")
     ordering = ("-created_at",)
@@ -53,7 +49,7 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ("image_preview", "created_at", "updated_at")
 
     fieldsets = (
-        ("Mahsulot ma'lumotlari", {
+        ("Данные товара", {
             "fields": (
                 "title",
                 "description",
@@ -63,15 +59,12 @@ class ProductAdmin(admin.ModelAdmin):
                 "image_preview",
             )
         }),
-        ("Vaqt ma'lumotlari", {
+        ("Дата и время", {
             "fields": ("created_at", "updated_at")
         }),
     )
 
-    inlines = (
-        ProductImageInline,
-        ProductCharacteristicInline,
-    )
+    inlines = (ProductImageInline, ProductCharacteristicInline)
 
     def image_preview(self, obj):
         if obj.image:
@@ -80,39 +73,21 @@ class ProductAdmin(admin.ModelAdmin):
                 obj.image.url
             )
         return "-"
-    image_preview.short_description = "Rasm"
+    image_preview.short_description = "Изображение"
 
 
 @admin.register(ProductCharacteristic)
 class ProductCharacteristicAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "section",
-        "created_at",
-    )
-    list_filter = (
-        "section",
-        "created_at",
-    )
-    search_fields = (
-        "name",
-        "description",
-        "section__title",
-        "section__product__title",
-    )
+    list_display = ("id", "name", "section", "created_at")
+    list_filter = ("section", "created_at")
+    search_fields = ("name", "description", "section__title", "product__title")
     ordering = ("-created_at",)
     readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(ProductCharacteristicSection)
 class ProductCharacteristicSectionAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "title",
-        "created_at",
-    )
-    search_fields = ("title", "product__title")
+    list_display = ("id", "title", "created_at")
+    search_fields = ("title",)
     ordering = ("-created_at",)
     inlines = (ProductCharacteristicInline,)
-
