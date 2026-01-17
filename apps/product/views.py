@@ -38,7 +38,16 @@ class ProductViewSet(ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         category_id = request.query_params.get("category_id", None)
 
-        queryset = self.queryset
+        queryset = (
+            Product.objects
+            .select_related("category")
+            .prefetch_related(
+                "images",
+                "characteristics",
+            )
+            .order_by("-created_at")
+        )
+
         if category_id:
             queryset = queryset.filter(category_id=category_id)
 
